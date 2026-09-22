@@ -1,0 +1,7 @@
+﻿year,industry,establishments,employees,employees_per_establishment,share_of_all_establishments_pct,share_of_all_employees_pct,source,source_url
+2021,"AR_All industries (excl. public sector), private",1138,8371,7.4,100.0,100.0,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0
+2021,M_Accommodation and food services,235,1941,8.3,20.7,23.2,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0
+2021,M1_Accommodation (75_Accommodation),82,1128,13.8,7.2,13.5,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0
+2021,"M2_Eating and drinking places, takeout and delivery",153,813,5.3,13.4,9.7,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0
+2021,76_Eating and drinking places,130,644,5.0,11.4,7.7,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0
+2021,77_Takeout and delivery food services,23,169,7.3,2.0,2.0,"2021 Economic Census for Business Activity, Table 31-14 (by industry subgroup)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068159&fileKind=0

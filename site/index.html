@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yugawara Tourism Policy Dashboard</title>
+<meta name="description" content="A decision tool for setting the rate of a proposed accommodation tax in Yugawara Town, built from primary statistics.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♨️</text></svg>">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <div class="head-top">
+      <div class="head-title">
+        <h1>Yugawara Tourism Policy Dashboard</h1>
+        <p>Setting the rate of a proposed accommodation tax — from 17 primary statistical series, 1990–2026</p>
+      </div>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-live="polite">Theme: auto</button>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Dashboard sections">
+      <button class="tab" role="tab" id="tab-decide" aria-controls="panel-decide" aria-selected="true">
+        <span class="tab-n">1</span>Decide: accommodation tax simulator</button>
+      <button class="tab" role="tab" id="tab-why" aria-controls="panel-why" aria-selected="false">
+        <span class="tab-n">2</span>Why it is needed: volume vs. density</button>
+      <button class="tab" role="tab" id="tab-use" aria-controls="panel-use" aria-selected="false">
+        <span class="tab-n">3</span>What to spend it on: off-season and weekdays</button>
+      <button class="tab" role="tab" id="tab-data" aria-controls="panel-data" aria-selected="false">
+        <span class="tab-n">4</span>Data and limitations</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+<!-- =================================================================== -->
+<!-- TAB 1 — the decision                                                -->
+<!-- =================================================================== -->
+<section class="panel" id="panel-decide" role="tabpanel" aria-labelledby="tab-decide">
+
+  <div class="panel-intro">
+    <div class="eyebrow">The problem</div>
+    <h2>If Yugawara introduces an accommodation tax, what rate closes the gap in its tourism budget?</h2>
+    <p>
+      <strong>Intended user: the Tourism Division of Yugawara Town and its Accommodation Tax Study Committee.</strong>
+      Yugawara Town is considering an accommodation tax. The three numbers the decision turns on
+      —— how fast the tax base is shrinking, how much each rate would raise, and how that compares with
+      today's tourism budget —— sit in different statistical publications and cannot be read side by side.
+      This dashboard puts all three on one screen so that a rate can actually be chosen.
+    </p>
+    <p>
+      Move the design assumptions below and the revenue estimate, the chart and the sensitivity table all
+      update together. The overnight visitor counts behind the estimate are measured values from the
+      Kanagawa Prefecture Tourist Visitor Survey (635,000 in 2024).
+    </p>
+  </div>
+
+  <div class="grid sim">
+    <!-- controls -->
+    <form class="controls" id="simControls" aria-label="Accommodation tax design assumptions">
+      <div class="eyebrow" style="margin:0">Design assumptions</div>
+      <div class="field">
+        <span class="flabel">Tax structure</span>
+        <div class="seg" role="group" id="segMethod">
+          <button type="button" data-v="flat" aria-pressed="true">Flat (per person-night)</button>
+          <button type="button" data-v="rate" aria-pressed="false">Percentage of room rate</button>
+        </div>
+      </div>
+
+      <div class="field" id="fieldFlat">
+        <label for="inFlat">Tax per person-night <span class="fval" id="outFlat">¥200</span></label>
+        <input type="range" id="inFlat" min="0" max="500" step="50" value="200">
+        <span class="fhint">Accommodation taxes in Japan are typically a flat ¥100–¥500 per person-night.</span>
+      </div>
+
+      <div class="field" id="fieldRate" hidden>
+        <label for="inRate">Tax rate <span class="fval" id="outRate">2.0%</span></label>
+        <input type="range" id="inRate" min="0.5" max="5" step="0.5" value="2">
+        <label for="inAvgPrice" style="margin-top:8px">Assumed average room rate
+          <span class="fval" id="outAvgPrice">¥15,000</span></label>
+        <input type="number" id="inAvgPrice" min="3000" max="60000" step="1000" value="15000">
+        <span class="fhint">
+          <span class="pill na">assumption</span>
+          No statistic gives this figure. It is an assumption you set — somewhere between the prefecture's
+          fixed rate of ¥10,500 and the roughly ¥28,000 measured in RESAS card data.
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="inCoverage">Share of nights taxed <span class="fval" id="outCoverage">90%</span></label>
+        <input type="range" id="inCoverage" min="50" max="100" step="5" value="90">
+        <span class="fhint">
+          <span class="pill na">assumption</span>
+          The share left after exemptions — a price threshold, school trips and so on.
+          No data on the distribution of room rates exists, so this is an assumption you set.
+        </span>
+      </div>
+
+      <div class="field">
+        <label for="inCost">Collection cost <span class="fval" id="outCost">5%</span></label>
+        <input type="range" id="inCost" min="0" max="15" step="1" value="5">
+        <span class="fhint">Commission to collecting operators, systems and administration. Deducted from revenue.</span>
+      </div>
+
+      <div class="field">
+        <label for="inScenario">Overnight visitor scenario</label>
+        <select id="inScenario"></select>
+        <span class="fhint">The assumption behind the tax base: a measured past year, or an extrapolation of the measured trend.</span>
+      </div>
+    </form>
+
+    <!-- results -->
+    <div style="display:grid;gap:16px;min-width:0">
+      <div class="hero">
+        <div class="h-label" id="heroLabel">Estimated annual revenue, net of collection cost</div>
+        <div class="h-value"><span id="heroValue">—</span></div>
+        <div class="h-sub" id="heroSub">—</div>
+      </div>
+
+      <div class="tiles" id="simTiles"></div>
+
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>The town's tourism budget, and the size of this revenue</h3>
+          <p>Columns are actual tourism spending by the town (FY2003–FY2023); the red line is the revenue estimated from the assumptions above. Whether the line reaches the columns is the first test of any rate.</p>
+        </div>
+        <div id="chartBudget"></div>
+      </div>
+
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>The tax base itself is shrinking</h3>
+          <p>Overnight visitors fell from 1,334,000 in 1990 to 635,000 in 2024 — <strong>down 52% in 34 years</strong>. Any rate has to be chosen against that slope, not against a flat base.</p>
+        </div>
+        <div id="chartBase"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Sensitivity — tax per night × visitor scenario</h3>
+    <div class="card">
+      <p style="margin:0 0 12px;font-size:.875rem;color:var(--ink-2)">
+        Annual revenue under a flat tax, net of collection cost.
+        The share of nights taxed and the collection cost are taken from the design assumptions above.
+        <span id="sensNote" style="color:var(--ink-3)"></span>
+      </p>
+      <div class="tbl-wrap" id="sensTable"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Recommendations</h3>
+    <ol class="rec" id="recList"></ol>
+  </div>
+
+</section>
+
+<!-- =================================================================== -->
+<!-- TAB 2 — why                                                         -->
+<!-- =================================================================== -->
+<section class="panel" id="panel-why" role="tabpanel" aria-labelledby="tab-why" hidden>
+
+  <div class="panel-intro">
+    <div class="eyebrow">The headline finding</div>
+    <h2>Visitor numbers have recovered. What has not recovered is the density of the stay and the capacity to host it</h2>
+    <p>
+      Yugawara received 4,056,000 visitors in 2024, back to 99% of its 2019 level (4,096,000).
+      That is usually where the analysis stops. Every other indicator points the other way,
+      and the case for a tax depends on how that contradiction is read.
+    </p>
+  </div>
+
+  <div class="tiles" id="whyTiles"></div>
+
+  <div class="section">
+    <h3>Key findings</h3>
+    <ul class="findings" id="findingsList"></ul>
+  </div>
+
+  <div class="section">
+    <h3>Putting the indicators on one scale</h3>
+    <div class="controls row" id="idxControls" aria-label="Display options for the indexed chart below">
+      <div class="field">
+        <label for="inBaseYear">Base year (= 100)</label>
+        <select id="inBaseYear">
+          <option value="2015">2015</option>
+          <option value="2019" selected>2019</option>
+        </select>
+      </div>
+      <div class="field" style="flex:1 1 320px">
+        <span class="flabel">Indicators shown</span>
+        <div class="checks" id="idxChecks"></div>
+        <p class="fhint" id="idxNote" style="margin:2px 0 0" hidden></p>
+      </div>
+    </div>
+    <div class="card chart-card">
+      <div class="card-head">
+        <h3>Indexed to the base year = 100</h3>
+        <p>One axis, so indicators with different units can be compared honestly (a second y-axis would invent a correlation that is not in the data). Below 100 means smaller than in the base year.</p>
+      </div>
+      <div id="chartIndexed"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Taking the structure apart</h3>
+    <div class="grid two">
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Overnight and day visitors</h3>
+          <p>The total came back, but it came back on the day-trip side. The overnight share is 15.7% in 2024 against 15.8% in 1990 — the share held while the volume halved.</p>
+        </div>
+        <div id="chartMix"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Stays keep getting shorter</h3>
+          <p>The share of overnight guests who stay a single night, up from 32.7% in 2014 to 56.4% in 2025. Two- and three-night stays are being replaced by one-night stays.</p>
+        </div>
+        <div id="chartNights"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Compared with its neighbours — overnight share</h3>
+          <p>Three towns measured by the same prefectural survey on the same definition. Yugawara's overnight share stays consistently below Hakone's, and the gap is not closing.</p>
+        </div>
+        <div id="chartPeers"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Capacity: accommodation and food service establishments</h3>
+          <p>From 421 in 2006 to 235 in 2021 — down 44% in 15 years. The businesses that would host additional visitors are disappearing faster than the visitors are returning.</p>
+        </div>
+        <div id="chartEstab"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Workforce: population and ageing</h3>
+          <p>An ageing rate of 43.7% (2023) is 1.5–1.7 times Kanagawa Prefecture (25.8%) and Japan as a whole (29.0%). There are only 1.13 working-age residents per resident aged 65 or over.</p>
+        </div>
+        <div id="chartAgeing"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Access: daily boardings at JR Yugawara Station</h3>
+          <p>5,833 per day in FY2019, 5,008 in FY2022, 5,171 in FY2024. Non-pass boardings — broadly, visitors rather than commuters — have not returned to the FY2019 level.</p>
+        </div>
+        <div id="chartStation"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- =================================================================== -->
+<!-- TAB 3 — what to spend it on                                         -->
+<!-- =================================================================== -->
+<section class="panel" id="panel-use" role="tabpanel" aria-labelledby="tab-use" hidden>
+
+  <div class="panel-intro">
+    <div class="eyebrow">Evidence for how the revenue should be spent</div>
+    <h2>The off-season problem is not that nobody comes. It is that rooms are sold cheaply</h2>
+    <p>
+      Measured spend per visitor from RESAS card data shows weekday lodging at ¥32,828 in January
+      falling to ¥20,436 in September — a <strong>1.61× spread</strong> across the year.
+      Visitor numbers in September are not unusually low. What collapses is the price.
+    </p>
+    <p>
+      The weekday/weekend split runs in opposite directions for the two largest spending categories.
+      <strong>Lodging is worth more on weekdays</strong> (weekends are 5.3% cheaper), while
+      food and beverage is worth 8.4% more at weekends. A single campaign covering both would work
+      against itself.
+    </p>
+  </div>
+
+  <div class="controls row" id="useControls" aria-label="Display options for this section">
+    <div class="field">
+      <label for="inYear">Year (prefectural survey: monthly visitors, sites and events)</label>
+      <select id="inYear"></select>
+    </div>
+    <div class="field">
+      <label for="inItem">Spending category (RESAS: spend per visitor)</label>
+      <select id="inItem"></select>
+    </div>
+    <div class="field">
+      <span class="flabel">Heatmap measure</span>
+      <div class="seg" role="group" id="segHeat">
+        <button type="button" data-v="total" aria-pressed="true">All visitors</button>
+        <button type="button" data-v="stay" aria-pressed="false">Overnight visitors</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" style="gap:16px">
+    <div class="card chart-card">
+      <div class="card-head">
+        <h3>Seasonality — year × month</h3>
+        <p id="heatCaption">Visitors by month; darker means more. April is by far the largest month, followed by June. Switch the measure to overnight visitors and the pattern almost disappears.</p>
+      </div>
+      <div id="chartHeat"></div>
+    </div>
+
+    <div class="grid two">
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Overnight and day visitors by month, <span id="mixYearLabel"></span></h3>
+          <p>Whether a busy month is busy with overnight guests or with day trippers decides which policy applies to it.</p>
+        </div>
+        <div id="chartMonthMix"></div>
+      </div>
+      <div class="card chart-card">
+        <div class="card-head">
+          <h3>Measured spend per visitor — weekday vs. weekend <span class="pill meas">measured</span></h3>
+          <p>From Visa card transactions via RESAS, January 2025 to March 2026. <span id="itemLabel"></span></p>
+        </div>
+        <div id="chartWeekday"></div>
+      </div>
+    </div>
+
+    <div class="card chart-card">
+      <div class="card-head">
+        <h3>Visitors by site, facility and event (<span id="spotYearLabel"></span>)</h3>
+        <p>Candidate places to invest, ranked by size. Events draw crowds on a single day, but whether those crowds convert into overnight stays is a separate question.</p>
+      </div>
+      <div id="chartSpots"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>What this screen shows</h3>
+    <div class="grid two">
+      <div class="note crit">
+        <div class="note-title"><span class="ico">▲</span>September and October are when the price collapses</div>
+        Weekday lodging is ¥20,436 in September and ¥21,510 in October, just over 60% of January's ¥32,828.
+        September is not a notably quiet month for visitor numbers, so this is
+        <strong>a pricing problem, not a demand problem</strong>.
+      </div>
+      <div class="note warn">
+        <div class="note-title"><span class="ico">▲</span>Weekday and weekend policy have to point in opposite directions</div>
+        Lodging is worth more on weekdays (weekend ÷ weekday = 0.947); food and beverage is worth more at
+        weekends (1.084). Filling weekday rooms and growing weekend dining are two different programmes
+        and need to be designed separately.
+      </div>
+      <div class="note">
+        <div class="note-title"><span class="ico">■</span>The busiest months are the worst months for overnight stays</div>
+        April 2024 drew 636,000 visitors but only 7.7% of them stayed the night; June drew 554,000 at 7.4%.
+        January was the quietest month (209,000) and the strongest for overnight share (26.3%).
+        <strong>The seasonal swing is almost entirely day trippers</strong> — overnight visitors range only
+        41,000–64,000 across the year (1.6×) against 3.0× for the total.
+      </div>
+      <div class="note">
+        <div class="note-title"><span class="ico">■</span>Read the direction of the gap, not its size</div>
+        In the RESAS weekday/weekend split, a visitor who pays on both a Friday and a Saturday is counted in
+        both, so the levels come out lower than the headline spend per visitor.
+        Only the direction of the difference is used as evidence here.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- =================================================================== -->
+<!-- TAB 4 — data and limitations                                        -->
+<!-- =================================================================== -->
+<section class="panel" id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
+
+  <div class="panel-intro">
+    <div class="eyebrow">Methodology</div>
+    <h2>How the data was collected, what the terms mean, and what this data cannot prove</h2>
+  </div>
+
+  <div class="section">
+    <h3>How the data was collected</h3>
+    <div class="prose">
+      <p>
+        Everything comes from primary sources. No secondary citations, blogs or aggregator sites were used.
+        Retrieved 2026-09-20. Nothing in the dataset can identify an individual: no names, contact details,
+        medical information or precise personal locations.
+      </p>
+      <h4>1. Machine extraction from published PDFs</h4>
+      <p>
+        The Kanagawa Prefecture Tourist Visitor Survey and the Yugawara Town Statistical Handbook are
+        published only as PDFs. Their text layer was extracted with PDFKit (Swift, macOS) and reshaped into
+        tables in Python. Two tables whose layout does not survive extraction (Tables 4 and 5 of the
+        prefectural survey) were transcribed against rendered page images instead.
+      </p>
+      <h4>2. Verification by identity</h4>
+      <p>
+        Every extracted year was checked against three identities: <code>annual total = sum of 12 months</code>,
+        <code>total visitors = overnight + day</code>, and <code>total spend = sum of its components</code>.
+        The annual figures rebuilt from the monthly table were then cross-checked against two other
+        published tables and against the figures in the town's own accommodation tax study report; all agreed.
+      </p>
+      <h4>3. Transcription from screen recordings (RESAS)</h4>
+      <p>
+        RESAS offers no CSV export and no public API for these views. The screen was recorded while the
+        pointer traced every month; frames were cut at 0.5-second intervals, the tooltip was detected and
+        cropped automatically, and the values were read off. About a minute of recording yields twelve
+        months of one series.
+      </p>
+      <h4>4. Joining two sources into one series</h4>
+      <p>
+        Years 2005–2009 come from the town handbook and 2010–2024 from the prefectural survey.
+        The two overlap in 2015 and agree exactly (3,109k total / 568k overnight / 2,541k day),
+        so they are treated as a single series.
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>⚠ The most important caveat — the prefecture's "tourism spending" is not a measured figure</h3>
+    <div class="note crit">
+      <div class="note-title"><span class="ico">▲</span>It is visitor counts multiplied by a fixed rate</div>
+      <p style="margin:6px 0">
+        The following identity holds <strong>with zero error</strong> for every month and every year from 2019 to 2024:
+      </p>
+      <p style="margin:6px 0"><code>tourism spending = overnight visitors × ¥10,500 + day visitors × ¥1,080</code></p>
+      <p style="margin:6px 0">
+        The figure therefore carries no information about actual spending behaviour: it moves only when the
+        mix of overnight and day visitors moves. Anything derived from it is labelled
+        <span class="pill est">estimated</span> on this site, and measured spend per visitor from RESAS card
+        data is labelled <span class="pill meas">measured</span>. The two are defined differently and
+        <strong>their levels must not be compared</strong> (¥10,500 against roughly ¥28,000).
+      </p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Sources</h3>
+    <div class="card">
+      <div class="tbl-wrap" id="sourcesTable"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Definitions and units</h3>
+    <div class="card">
+      <div class="tbl-wrap" id="defsTable"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Missing data, bias and uncertainty — what this data cannot prove</h3>
+    <div class="prose">
+      <h4>Indicators that could not be obtained</h4>
+      <ul>
+        <li><strong>Room occupancy rate.</strong> Not published for Yugawara Town on its own, and absent from
+          the RESAS overnight guest analysis. No primary figure exists.
+          <em>Consequence: the tax base cannot be cross-checked from the supply side
+          (rooms × occupancy); it rests on the visitor-count side alone.</em></li>
+        <li><strong>Guest nights from the national Accommodation Survey.</strong> Municipal-level publication
+          is limited. The RESAS overnight guest analysis was tested as a substitute and rejected: its
+          year-on-year direction disagrees with the prefectural survey in 7 of 11 years, and the ratio
+          between the two wanders between 1.01 and 1.59 with no stable conversion factor.
+          It is used here <strong>only as a share within its own source</strong> (the one-night share).</li>
+        <li><strong>The distribution of room rates.</strong> Without it there is no way to estimate how much of
+          the base an exemption threshold would remove. That is why "share of nights taxed" in the
+          simulator is an assumption the user sets rather than a derived figure.</li>
+        <li><strong>Accommodation establishment counts after 2016.</strong> The town handbook stops there.</li>
+        <li><strong>Road traffic census, bus GTFS, bike-share GBFS, search trends and review data.</strong>
+          Out of scope here, either because acquisition requires large GIS files and periodic feeds that do
+          not belong in a static dataset, or because scraping would conflict with the providers' terms.</li>
+      </ul>
+
+      <h4>Known biases</h4>
+      <ul>
+        <li><strong>RESAS card data covers card-present transactions only.</strong> Payments made in advance
+          through online travel agencies are excluded, which probably understates lodging spend.
+          The figures are estimates derived from Visa transactions.</li>
+        <li><strong>The weekday/weekend split double-counts visitors.</strong> Somebody who pays on a Friday and
+          again on a Saturday is counted in both, so these levels sit below the headline spend per visitor.
+          <strong>Only the direction of the difference is used as evidence on this site</strong>; the size of
+          the difference is not.</li>
+        <li><strong>Visitor counts are visits, not people.</strong> One person visiting three surveyed points is
+          counted three times. Because the number and choice of survey points differ by municipality, the
+          comparison with neighbouring towns is kept to shares rather than absolute levels.</li>
+        <li><strong>Population comes in three incompatible series</strong> — the Basic Resident Register (1 Jan),
+          the prefectural Population by Age Survey (1 Jan) and the Population Census (1 Oct). They are never
+          mixed here, and each chart states which one it uses.</li>
+        <li><strong>2020–2022 fall inside the pandemic.</strong> Any trend line spanning those years cannot
+          separate structural change from a temporary shock.</li>
+      </ul>
+
+      <h4>Limits of the simulator</h4>
+      <ul>
+        <li>The revenue estimate <strong>assumes zero price elasticity of demand</strong>: it does not model
+          visitors deciding not to come because of the tax. In reality, the higher the rate the further
+          actual revenue will fall below the estimate. <strong>Read every figure as an upper bound.</strong></li>
+        <li>The share of nights taxed, the collection cost and the average room rate are
+          <strong>assumptions set by the user, not statistics</strong>. They are marked
+          <span class="pill na">assumption</span> wherever they appear.</li>
+        <li>The −1% and −3% scenarios are straight extrapolations of the past trend. They are not forecasts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Download the dataset</h3>
+    <div class="card">
+      <p style="margin:0 0 10px;font-size:.875rem;color:var(--ink-2)">
+        The CSV files behind this site (UTF-8 with BOM, so they open directly in Excel and Google Sheets).
+        Every file carries <code>source</code> and <code>source_url</code> columns.
+      </p>
+      <ul class="dl-list" id="downloads"></ul>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p style="margin:0 0 4px">
+      Yugawara Tourism Policy Dashboard · data retrieved 2026-09-20 ·
+      sources are given under each chart and in the "Data and limitations" section.
+    </p>
+    <p style="margin:0">
+      No personal data (names, contact details, medical information or precise personal locations) was collected.
+      Figures were machine-extracted from primary statistics and verified by identity; differences of up to
+      ±10 remain where the original rounds its own components.
+    </p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

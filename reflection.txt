@@ -1,0 +1,110 @@
+===============================================================================
+REFLECTION: WHAT THE DATA SUPPORTS, AND WHAT IT CANNOT PROVE
+Yugawara Tourism Policy Dashboard
+Companion to submit/site/index.html and submit/methodology-note.txt
+===============================================================================
+
+
+1. WHAT THE DATA SUPPORTS, RECOMMENDATION BY RECOMMENDATION
+-------------------------------------------------------------------------------
+
+R1. "Start from a flat 200 yen and aim to replace about a third of the tourism
+     budget."
+
+What the data carries: both ends of the comparison are measured values rather
+than estimates. The tax base is a count - 635,000 overnight visitors in 2024,
+from the prefectural survey - and the target is the town's own published
+figure, 362 million yen of tourism spending in FY2023. Two further findings
+support the direction of the proposal. First, revenue would not be heavily
+skewed by season: read off the same monthly table, total visitors vary by 3.0x
+across 2024 while overnight visitors move only 1.6x. Second, the tax base
+itself is shrinking - overnight visitors are down 52% against 1990 - so the
+longer the decision is deferred, the less the same rate will raise.
+
+
+R2. "Spend it on holding prices up in September and October, not on filling the
+     off-season with people."
+
+This is the most strongly supported of the four recommendations, because two
+independent sources point the same way. On price, the 2025 card data puts
+weekday lodging spend at 20,436 yen in September, the cheapest month of the
+year and 1.61x below January. On volume, the prefectural survey puts September
+2024 at 96% of the median month and 1.31 times the quietest month; and for
+overnight visitors specifically it ranks 9th of the 12 months, above the
+median. September is not a month short of guests. It is a month short of
+price - and these two facts come from separate datasets collected by different
+organisations.
+
+This is also a recommendation that depended on invalidating an existing figure.
+Had we simply used the prefecture's "tourism spending per visitor" - 2,554 yen
+in 2024 - the off-season problem would have appeared to be a volume problem. In
+fact that figure is no more than the identity "overnight visitors x 10,500 yen
++ day visitors x 1,080 yen", which holds with zero error for every month and
+year checked. It moves only with the composition of visitors and reflects
+nothing about actual prices. Discovering this made the switch to card data
+unavoidable, and it turned the substance of the recommendation around.
+
+
+R3. "Design weekday policy around lodging and weekend policy around food and
+     drink."
+
+All the data shows is that two ratios sit on opposite sides of 1.0 - lodging at
+0.947, food and beverage at 1.084 - calculated from a single year of card data
+in which visitors are double-counted across the weekday and weekend split. That
+is enough to argue that the two campaigns should not be bundled together, since
+bundling them would have each cancel out part of the other. It is not enough to
+determine the scale of either measure, and the site states as much on the face
+of the chart.
+
+
+R4. "Use part of the revenue to keep operators in business - and to start
+     measuring occupancy."
+
+According to the census and related statistics, accommodation and food service
+establishments fell from 421 in 2006 to 235 in 2021. Their weight in the local
+economy is equally clear: accommodation alone employs 1,128 people across 82
+establishments - 13.8 per establishment against a town average of 7.4 - and
+accounts for 13.5% of all employment in the town (23.2% for accommodation and
+food services together). What the data does not support, on the other hand, is
+that injecting subsidy would keep those businesses going, or the causal claim
+that their closure is the direct cause of the decline in overnight visitors
+rather than both arising from a common factor such as population decline.
+
+The second half, on measuring occupancy, is on reflection the most strongly
+supported recommendation on the whole site - precisely because it is drawn
+directly from the fact of a data gap rather than from a claim about causation.
+In every source we were able to check, no published occupancy figure exists for
+Yugawara Town. And introducing an accommodation tax already places a monthly
+reporting obligation on every operator for the number of guests staying. No
+hypothesis about visitor behaviour has to hold true for this measure to be
+worth pursuing.
+
+One finding shapes the framing of the analysis without being tied directly to
+any recommendation: the share of guests staying only one night has risen from
+32.7% to 56.4%. It is the clearest indication that the problem lies in a loss
+of density rather than in volume.
+
+
+2. WHAT THE DATA CANNOT PROVE
+-------------------------------------------------------------------------------
+The revenue estimate is the figure most likely to stay with a reader, but it is
+the least certain element on the site. Because no price elasticity data exists
+for lodging in Yugawara, it assumes that demand does not respond to the tax at
+all. The simulator therefore cannot reflect in its model the one effect a tax
+increase is certain to produce. Every figure it produces is an upper bound.
+
+Nor can this data prove the chain of causation the recommendations implicitly
+depend on. What the data shows is that establishments are closing and that
+overnight stays are falling. It does not show that either is the cause of the
+other, and it is equally consistent with the same deterioration in demographics
+producing both. Furthermore, the dataset contains nothing at all linking public
+expenditure to any outcome, so R2's mechanism - that spending on off-season
+positioning will raise off-season prices - is no more than a plausible
+hypothesis, not something demonstrated.
+
+The price series supporting R2 also covers only a single year, so it is a fact
+about the present rather than a long-term trend. It cannot establish whether
+the September discounting is something that has emerged recently, a stable
+structural feature, or a widening one.
+
+===============================================================================

@@ -1,0 +1,7 @@
+﻿year,spending_per_visitor_yen,overnight_share_pct,monthly_visitors_cv_pct,peak_to_trough_ratio,peak_month,trough_month,lodging_share_of_spend_pct,non_lodging_share_of_spend_pct,check_lodging_spend_per_overnight_visitor_yen,check_non_lodging_spend_per_day_visitor_yen,source,source_url
+2019,2631,16.5,19.7,1.81,4,3,65.7,34.3,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html
+2020,2395,14.0,11.5,1.42,10,3,61.2,38.8,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html
+2021,2177,11.6,15.7,1.65,4,9,56.2,43.8,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html
+2022,2515,15.2,11.3,1.49,10,1,63.6,36.4,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html
+2023,2516,15.2,24.9,2.24,4,1,63.6,36.4,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html
+2024,2554,15.6,36.6,3.04,4,1,64.3,35.7,10500,1080,"Kanagawa Prefecture, ""Tourist Visitor Survey""",https://www.pref.kanagawa.jp/docs/b6m/cnt/f80022/r6irikomi.html

@@ -1,0 +1,5 @@
+﻿year,total_establishments,establishments_1_9,share_1_9_pct,establishments_10_49,establishments_50_99,establishments_100_plus,source,source_url,notes
+2006,1458,1246,85.5,189,16,5,"Yugawara Town Statistical Handbook, 2024 edition",https://www.town.yugawara.kanagawa.jp/uploaded/attachment/13737.pdf,
+2012,1309,1089,83.2,188,18,6,"Yugawara Town Statistical Handbook, 2024 edition",https://www.town.yugawara.kanagawa.jp/uploaded/attachment/13737.pdf,
+2016,1219,1010,82.9,186,12,5,"Yugawara Town Statistical Handbook, 2024 edition",https://www.town.yugawara.kanagawa.jp/uploaded/attachment/13737.pdf,
+2021,1138,928,81.5,155,,,"2021 Economic Census for Business Activity, Table 32-2-14 (by employee size)",https://www.e-stat.go.jp/stat-search/file-download?statInfId=000040068161&fileKind=0,In 2021 the size bands are 1-4 / 5-9 / 10-19 / 20-29 / 30+. 1-9 employees = 724 + 204; the 10-49 figure covers only 10-19 (110) and 20-29 (45) and excludes 30-49.

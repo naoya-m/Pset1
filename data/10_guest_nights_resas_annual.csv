@@ -1,0 +1,14 @@
+﻿year,guest_nights_total,one_night,two_or_three_nights,four_or_more_nights,unknown_nights,one_night_share_pct,adult_male,adult_female,children,ref_pref_survey_overnight_visitors,resas_over_pref_survey,source,source_url
+2013,596906,271760,317254,7892,,45.5,250381,315665,30886,593000,1.007,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2014,801385,262352,496640,42393,,32.7,,,,577000,1.389,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2015,902060,320658,548444,31849,1109,35.5,,,,568000,1.588,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2016,899828,347053,538690,12887,1198,38.6,,,,576000,1.562,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2017,786228,317180,458855,8909,1284,40.3,,,,681000,1.155,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2018,821064,353728,444438,15254,7644,43.1,,,,690000,1.19,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2019,831297,337968,470316,15250,7763,40.7,360669,431504,39129,674339,1.233,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2020,567670,248993,307996,10248,433,43.9,246942,289722,31003,502706,1.129,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2021,625144,285712,329729,9703,,45.7,,,,407427,1.534,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2022,883310,377362,490236,15712,,42.7,,,,579623,1.524,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2023,944347,481468,453554,9325,,51.0,,,,596699,1.583,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2024,855365,428925,419424,7016,,50.1,349940,453233,52183,634580,1.348,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
+2025,914149,515798,382417,15934,,56.4,391980,485621,36540,,,RESAS Overnight Guest Analysis (Tourism Forecast Platform),https://resas.go.jp/tourism-guest/
