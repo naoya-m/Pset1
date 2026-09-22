@@ -22,15 +22,7 @@ Intended user: the Tourism Division of Yugawara Town and its Accommodation Tax S
 
 ## 1. The Site
 
-Open `site/index.html` in any browser. There is nothing to build and nothing to install:
-the page has no external dependencies and the data is bundled into `site/js/data.js`,
-so it works from the local file system as well as over HTTP.
-
-To serve it locally instead:
-
-```bash
-python3 -m http.server 4173 --directory site
-```
+Open `site/index.html` in any browser. 
 Yugawara Town, Kanagawa, Japan is considering an accommodation tax. The three
 numbers that decision turns on - how fast the tax base is shrinking, how much
 each rate would raise, and how that compares with today's tourism budget - sit
